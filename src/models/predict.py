@@ -1,49 +1,37 @@
 import numpy as np
-import json
+import tensorflow as tf
+from sklearn.preprocessing import LabelEncoder
+from keras.models import load_model
 import pickle
-from tensorflow.keras.preprocessing.text import tokenizer_from_json
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from data.preprocess import preprocess_user_input
+from src.data.preprocess import preprocess_user_input, preprocess_and_embed
+
 
 # Path ke model, tokenizer, dan label encoder
-MODEL_PATH = r"E:\Pembelajaran\Semester 5\PSO\FP\FinalProject_MLOps_Group1\notebook\model2(balancing).h5"
-TOKENIZER_PATH = r"E:\Pembelajaran\Semester 5\PSO\FP\FinalProject_MLOps_Group1\notebook\tokenizer.json"
-LABEL_ENCODER_PATH = r"E:\Pembelajaran\Semester 5\PSO\FP\FinalProject_MLOps_Group1\notebook\label_encoder2.pkl"
+MODEL_PATH = r"E:\Pembelajaran\Semester 5\PSO\FP\FinalProject_MLOps_Group1\notebook\keras(ANN).h5"
+LABEL_ENCODER_PATH = r"E:\Pembelajaran\Semester 5\PSO\FP\FinalProject_MLOps_Group1\notebook\label_encoder.pkl"
 
-
-# Muat model
+# Memuat model yang sudah dilatih
 model = load_model(MODEL_PATH)
 
-# Muat tokenizer dari file JSON
-with open(TOKENIZER_PATH, "r") as f:
-    tokenizer_data = json.load(f)
-tokenizer = tokenizer_from_json(tokenizer_data)
+# Memuat label encoder (pastikan Anda menyimpan label encoder setelah pelatihan)
+with open(LABEL_ENCODER_PATH, 'rb') as file:
+    label_encoder = pickle.load(file)
 
-# Muat label encoder
-with open(LABEL_ENCODER_PATH, "rb") as f:
-    label_encoder = pickle.load(f)
-
-def predict_category(user_text, max_length=130):
-    """
-    Melakukan prediksi kategori berita berdasarkan teks input pengguna.
-    :param user_text: String input teks berita.
-    :param max_length: Panjang maksimum sequence untuk padding.
-    :return: Tuple (kategori prediksi, probabilitas kategori).
-    """
-    # Preprocessing teks input
-    cleaned_text = preprocess_user_input(user_text)
-
-    # Tokenisasi dan padding
-    sequence = tokenizer.texts_to_sequences([cleaned_text])
-    padded_sequence = pad_sequences(sequence, maxlen=max_length, padding='post', truncating='post')
-
-    # Prediksi kategori
-    prediction_probs = model.predict(padded_sequence)
-    predicted_class_index = np.argmax(prediction_probs, axis=-1)[0]  # Indeks kategori
-    predicted_category = label_encoder.inverse_transform([predicted_class_index])[0]  # Label kategori
-
-    # Probabilitas kategori
-    predicted_probability = prediction_probs[0][predicted_class_index]
-
-    return predicted_category, predicted_probability
+# Fungsi untuk melakukan prediksi pada input teks
+def predict(text, embed_model):
+    # Preprocess input teks menggunakan fungsi dari preprocess.py
+    cleaned_text = preprocess_user_input(text)
+    
+    # Proses embedding teks yang telah dibersihkan
+    embedded_text = preprocess_and_embed([cleaned_text], embed_model)
+    
+    # Membuat prediksi dengan model
+    prediction = model.predict(embedded_text)
+    
+    # Menghitung probabilitas untuk setiap kategori
+    probabilities = prediction[0]
+    
+    # Mendapatkan label kategori yang diprediksi
+    predicted_label = label_encoder.inverse_transform([np.argmax(probabilities)])[0]
+    
+    return predicted_label, probabilities

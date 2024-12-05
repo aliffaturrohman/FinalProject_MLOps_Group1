@@ -7,8 +7,8 @@ from preprocess import preprocess_user_input, preprocess_and_embed
 
 
 # Path ke model, tokenizer, dan label encoder
-MODEL_PATH = r"notebook/keras(ANN).h5"
-LABEL_ENCODER_PATH = r"notebook/label_encoder.pkl"
+MODEL_PATH = r"backend/ml_model_v2/keras(ANN).h5"
+LABEL_ENCODER_PATH = r"backend/ml_model_v2/label_encoder.pkl"
 
 # Memuat model yang sudah dilatih
 model = load_model(MODEL_PATH)

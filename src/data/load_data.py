@@ -1,0 +1,1 @@
+#file load_data.py tidak diperlukan untuk menjalankan prediksi secara langsung di aplikasi web. Input dari pengguna dikirimkan langsung ke pipeline, sehingga file ini tidak relevan untuk prediksi di aplikasi produksi.

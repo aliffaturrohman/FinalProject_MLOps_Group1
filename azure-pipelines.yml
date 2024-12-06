@@ -1,19 +1,37 @@
 # Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# This pipeline triggers on 'machine-learning' or 'web_developer' branches
+# and automatically pushes to the 'cherry-pick' branch.
 
 trigger:
-- main
+- machine-learning
+- web_developer
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
+- script: echo "Hello, world!"
   displayName: 'Run a one-line script'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
+    echo "Add other tasks to build, test, and deploy your project."
+    echo "See https://aka.ms/yaml"
   displayName: 'Run a multi-line script'
+
+- script: |
+    # Configure git user (needed for push)
+    git config --global user.email "aliffaturrohman11@gmail.com"
+    git config --global user.name "Alif Faturrohman"
+    
+    # Fetch all branches from remote
+    git fetch --all
+    
+    # Checkout cherry-pick branch (create it if it doesn't exist)
+    git checkout cherry-pick || git checkout -b cherry-pick
+    
+    # Merge changes from the source branch into cherry-pick
+    git merge --no-ff $(Build.SourceBranchName) -m "Merge changes from $(Build.SourceBranchName)"
+    
+    # Push changes to cherry-pick branch
+    git push origin cherry-pick
+  displayName: 'Push changes to cherry-pick branch'

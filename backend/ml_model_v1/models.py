@@ -16,12 +16,12 @@ def translate_text(text):
     return text
 
 def load_resources():
-    with open('backend/tokenizer.pkl', 'rb') as f:
+    with open('backend/ml_model_v1/tokenizer.pkl', 'rb') as f:
         tokenizer = pickle.load(f)
     
-    model = load_model('backend/model2(balancing).h5')
+    model = load_model('backend/ml_model_v1/model2(balancing).h5')
     
-    with open('backend/label_encoder2.pkl', 'rb') as f:
+    with open('backend/ml_model_v1/label_encoder2.pkl', 'rb') as f:
         label_encoder = pickle.load(f)
     
     return tokenizer, model, label_encoder

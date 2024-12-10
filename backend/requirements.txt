@@ -7,3 +7,4 @@ scikit-learn
 nltk
 tensorflow_hub
 gunicorn
+waitress

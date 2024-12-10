@@ -54,9 +54,14 @@ jobs:
         with:
           name: nextjs-app
 
-      - name: List files after downloading artifact
+      - name: List contents of the current directory
         run: |
-          ls -R ./nextjs-app # Check the folder structure after download
+          echo "Current directory content:"
+          ls -R # List everything to find the downloaded artifact
+
+      - name: List contents of the downloaded artifact folder
+        run: |
+          ls -R ./nextjs-app # Check the content after artifact extraction
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -71,4 +76,4 @@ jobs:
         with:
           app-name: 'news-fe-pso'
           slot-name: 'Production'
-          package: ./nextjs-app # Ensure correct path after download
+          package: ./nextjs-app # Correct path after listing contents

@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import CORS
-from models import load_resources, predict_category  # Mengimpor fungsi dari models.py
+from backend.ml_model_v1.models import load_resources, predict_category  # Mengimpor fungsi dari models.py
 
 app = Flask(__name__)
 

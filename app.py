@@ -1,5 +1,5 @@
 import os
-from backend.ml_model_v2.app_v2 import app
+from backend.ml_model_v1.app import app
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

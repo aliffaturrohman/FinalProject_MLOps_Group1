@@ -1,4 +1,27 @@
-myenv
-myenv/*
+# Ignore virtual environment
+myenv/
+
+# Ignore environment files
 .env
-.env/*
+
+# Ignore Python cache files
+**/__pycache__/
+
+# Ignore log files
+*.log
+
+# Ignore Jupyter Notebook checkpoints
+**/.ipynb_checkpoints/
+
+# Ignore build/temporary files
+*.pyc
+*.pyo
+*.pyd
+*.tmp
+*.swp
+*.swo
+.DS_Store
+
+# Ignore IDE-specific files
+.vscode/
+.idea/

@@ -1,4 +1,4 @@
-from predict import predict
+from backend.ml_model_v2.predict import predict
 import tensorflow_hub as hub
 import numpy as np
 

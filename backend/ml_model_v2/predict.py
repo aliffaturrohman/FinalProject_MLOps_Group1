@@ -3,7 +3,7 @@ import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder
 from keras.models import load_model
 import pickle
-from preprocess import preprocess_user_input, preprocess_and_embed
+from backend.ml_model_v2.preprocess import preprocess_user_input, preprocess_and_embed
 
 
 # Path ke model, tokenizer, dan label encoder

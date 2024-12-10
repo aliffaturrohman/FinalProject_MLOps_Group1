@@ -1,0 +1,10 @@
+tensorflow
+numpy
+deep-translator
+flask
+flask-cors
+scikit-learn
+nltk
+tensorflow_hub
+gunicorn
+waitress

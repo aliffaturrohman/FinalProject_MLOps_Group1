@@ -72,6 +72,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'news-classification-backend'
+          app-name: 'news-backend-pso'
           slot-name: 'Production'
           package: './release.zip'

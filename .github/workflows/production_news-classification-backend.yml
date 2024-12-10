@@ -1,42 +1,43 @@
-name: Build and deploy Python app to Azure Web App - news-classification-backend
+name: Build and deploy Next.js app to Azure Web App - news-fe-pso
+
 on:
   push:
     branches:
       - production
   workflow_dispatch:
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up Python version
-        uses: actions/setup-python@v5
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
         with:
-          python-version: '3.12'
+          node-version: '20.x'
 
-      - name: Create and start virtual environment
+      - name: Install dependencies for Next.js app
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          cd mlops-fp
+          npm install
 
-      - name: Install dependencies
+      - name: Build Next.js app
         run: |
-          pip install -r backend/requirements.txt
+          cd mlops-fp
+          npm run build
 
-      - name: Create Waitress startup command
+      - name: Test Next.js app (optional)
         run: |
-          echo "waitress-serve --port=8000 app:app" > startup.txt
+          cd mlops-fp
+          npm run test --if-present
 
-      - name: Zip artifact for deployment
-        run: |
-          zip -r release.zip app.py models backend/requirements.txt startup.txt
-
-      - name: Upload artifact for deployment jobs
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
-          path: release.zip
+          name: nextjs-app
+          path: mlops-fp # Upload the mlops-fp folder
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,29 +47,33 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: python-app
+          name: nextjs-app
 
-      - name: Verify downloaded artifact
-        run: ls
+      - name: List contents of the current directory
+        run: |
+          echo "Current directory content:"
+          ls -R # List everything to find the downloaded artifact
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+      - name: List contents of the downloaded artifact folder
+        run: |
+          ls -R ./nextjs-app # Check the content after artifact extraction
 
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_EF22F7DD04C14055834D741579AFD163 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_48F858A8294047B8BE4AE98602830906 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9DADFE10865E47DCA17F720FBA6AA4A8 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4E994B0A221B4CAD8671B281297FBD1A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5641E677C87842C780033CDBEB9EDBC8 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1AFD49D9432F448BAD75B7484059389C }}
 
-      - name: Deploy to Azure Web App
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'news-classification-backend'
+          app-name: 'news-fe-pso'
           slot-name: 'Production'
-          package: './release.zip'
+          package: ./nextjs-app # Correct path after listing contents

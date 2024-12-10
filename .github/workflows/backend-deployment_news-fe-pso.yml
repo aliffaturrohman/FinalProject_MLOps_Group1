@@ -20,24 +20,24 @@ jobs:
 
       - name: Install dependencies for Next.js app
         run: |
-          cd mlops
+          cd mlops-fp
           npm install
 
       - name: Build Next.js app
         run: |
-          cd mlops
+          cd mlops-fp
           npm run build
 
       - name: Test Next.js app (optional)
         run: |
-          cd mlops
+          cd mlops-fp
           npm run test --if-present
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-app
-          path: ./mlops
+          path: ./mlops-fp
 
   deploy:
     runs-on: ubuntu-latest
@@ -67,4 +67,4 @@ jobs:
         with:
           app-name: 'news-fe-pso'
           slot-name: 'Production'
-          package: ./mlops
+          package: ./mlops-fp

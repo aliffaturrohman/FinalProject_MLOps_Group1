@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - news-classification-backend
+name: Build and deploy Python app to Azure Web App - news-backend-pso
 on:
   push:
     branches:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          zip -r release.zip app.py models backend/requirements.txt startup.txt
+          zip -r release.zip app.py models backendy/requirements.txt startup.txt
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4

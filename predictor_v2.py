@@ -3,8 +3,8 @@ from keras.models import load_model
 import pickle
 from utils_v2 import preprocess_user_input
 
-MODEL_PATH = "keras(ANN).h5"
-LABEL_ENCODER_PATH = "label_encoder.pkl"
+MODEL_PATH = "models/keras(ANN).h5"
+LABEL_ENCODER_PATH = "models/label_encoder.pkl"
 
 # Load model dan label encoder
 model = load_model(MODEL_PATH)

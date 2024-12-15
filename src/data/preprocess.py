@@ -4,12 +4,12 @@ import string
 import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 # Inisialisasi stopwords, lemmatizer dan translator
 STOPWORDS = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
-translator = Translator()
+translator = GoogleTranslator()
 
 # Fungsi untuk membersihkan URL
 def remove_URL(text):
@@ -90,8 +90,7 @@ def lemmatization(text):
 # Fungsi untuk menerjemahkan teks ke bahasa Inggris
 def translate_to_english(text):
     try:
-        translated = translator.translate(text, dest='en')
-        return translated.text
+        return GoogleTranslator(source='auto', target='en').translate(text)
     except Exception as e:
         print(f"Terjadi kesalahan saat menerjemahkan: {e}")
         return text

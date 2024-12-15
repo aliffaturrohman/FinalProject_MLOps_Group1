@@ -3,6 +3,7 @@ myenv/
 
 # Ignore environment files
 .env
+venv
 
 # Ignore Python cache files
 **/__pycache__/

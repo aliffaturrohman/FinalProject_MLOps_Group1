@@ -13,7 +13,7 @@ export default function LoginForm() {
     setIsLoading(true);  // Set loading saat submit form
 
     try {
-      const response = await fetch("news-classification-backend-gsbxgneugacyesc5.southeastasia-01.azurewebsites.net/predict", {
+      const response = await fetch("https://news-backend-pso-c3c2dsfycrdubzd6.southeastasia-01.azurewebsites.net/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

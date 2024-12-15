@@ -1,4 +1,12 @@
 # Import fungsi prediksi dari file predict.py
+import os
+# Matikan log verbose TensorFlow
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+import tensorflow as tf
+
+# Matikan logger TensorFlow
+tf.get_logger().setLevel('ERROR')
 from src.models.predict import predict
 import tensorflow_hub as hub
 import numpy as np
@@ -18,5 +26,3 @@ print(f"Predicted Category: {predicted_category}")
 # Ambil probabilitas untuk kategori yang diprediksi
 predicted_prob = predicted_probability[np.argmax(predicted_probability)]  # Ambil probabilitas untuk kategori terpilih
 print(f"Probability: {predicted_prob:.2f}")
-
-

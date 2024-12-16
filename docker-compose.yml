@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/app/models
+      - ./dataset:/app/dataset
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./mlops-fp
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./mlops-fp:/app
+    restart: unless-stopped

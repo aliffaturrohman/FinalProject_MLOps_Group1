@@ -24,8 +24,8 @@ os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 tf.get_logger().setLevel('ERROR')
 
 # Path ke model, tokenizer, dan label encoder
-MODEL_PATH = r"notebook/keras(ANN).h5"
-LABEL_ENCODER_PATH = r"notebook/label_encoder.pkl"
+MODEL_PATH = r"models/keras(ANN).h5"
+LABEL_ENCODER_PATH = r"models/label_encoder.pkl"
 
 # Inisialisasi Universal Sentence Encoder
 embedding_model = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")

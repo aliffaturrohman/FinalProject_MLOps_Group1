@@ -39,9 +39,8 @@ jobs:
           name: python-app
           path: release.zip
 
-      - name: Cleanup - Deactivate and remove virtual environment
+      - name: Cleanup - Remove virtual environment
         run: |
-          deactivate
           rm -rf venv
 
   test:
@@ -72,9 +71,8 @@ jobs:
         run: |
           pytest test_app.py --maxfail=1 --disable-warnings -q
 
-      - name: Cleanup - Deactivate and remove virtual environment
+      - name: Cleanup - Remove virtual environment
         run: |
-          deactivate
           rm -rf venv
 
   deploy:

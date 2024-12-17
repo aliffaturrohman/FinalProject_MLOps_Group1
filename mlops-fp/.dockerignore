@@ -1,0 +1,21 @@
+# Ignore all files by default
+*
+
+# Allow only essential Next.js files
+!.next/
+!.next/**/*
+!package.json
+!package-lock.json
+!pnpm-lock.yaml
+!next.config.ts
+!postcss.config.mjs
+!tailwind.config.ts
+!tsconfig.json
+!public/
+!public/**/*
+
+# Ignore development and temporary files
+node_modules/
+*.log
+*.swp
+*.env

@@ -15,7 +15,7 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return "test fetch api"
+    return "test ffffffffffff"
 
 
 @app.route("/predict", methods=["POST"])

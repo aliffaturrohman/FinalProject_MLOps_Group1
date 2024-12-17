@@ -1,0 +1,21 @@
+# Ignore all files by default
+*
+
+# Allow only these specific files and directories
+!requirements.txt
+!models/
+!models/*
+!app.py
+!app_v2.py
+
+# Ignore unnecessary cache and environment files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+venv/
+*.log
+*.bak
+*.swp
+

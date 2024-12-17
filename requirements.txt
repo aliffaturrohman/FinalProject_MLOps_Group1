@@ -8,3 +8,4 @@ nltk
 tensorflow_hub
 gunicorn
 waitress
+pandas

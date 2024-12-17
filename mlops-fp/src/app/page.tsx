@@ -29,7 +29,7 @@ export default function LoginForm() {
       const formData = new FormData();
       formData.append("file", uploadedFile);
 
-      const response = await fetch("http://127.0.0.1:5000/predict_file", {
+      const response = await fetch("news-backend-pso-c3c2dsfycrdubzd6.southeastasia-01.azurewebsites.net/predict_file", {
         method: "POST",
         body: formData,
       });
@@ -70,7 +70,7 @@ export default function LoginForm() {
         formData.append("title", title);
         formData.append("description", description);
   
-        const response = await fetch("http://127.0.0.1:5000/predict", {
+        const response = await fetch("news-backend-pso-c3c2dsfycrdubzd6.southeastasia-01.azurewebsites.net/predict", {
           method: "POST",
           body: formData,
         });

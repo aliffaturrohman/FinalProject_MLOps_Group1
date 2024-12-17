@@ -3,7 +3,7 @@ numpy
 deep-translator
 flask
 flask-cors
-scikit-learn
+scikit-learn==1.5.2
 nltk
 tensorflow_hub
 gunicorn

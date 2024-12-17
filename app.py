@@ -15,8 +15,11 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return "test ffffffffffff"
+    return "This is endpoint for flask app"
 
+@app.route('/test')
+def test():
+    return 'Hello, World!'
 
 @app.route("/predict", methods=["POST"])
 def predict():
